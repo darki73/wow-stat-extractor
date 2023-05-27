@@ -51,5 +51,5 @@ Upon completion, you will be presented with a table which will look similar to t
 | Speed           | 370          | 374        | -4         | less  |
 
 
-**trend** is the trend of the difference between the two characters. (more - first character has more of this stat, less - second character has more of this stat)
+**trend** is the trend of the difference between the two characters. (more - first character has more of this stat, less - second character has more of this stat)  
 **difference** is the difference between the two characters. (positive - first character has more of this stat, negative - second character has more of this stat)
