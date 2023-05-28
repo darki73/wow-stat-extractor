@@ -3,8 +3,8 @@ Tool to extract stats from World of Warcraft.
 It parses the World of Warcraft Armory and extracts the stats from the character page.
 
 # Why?
-The main problem I currently have (and yes, down the line characters in the example are Evokers) is that Armor still does not provide stats for Evokers.  
-This tool simply prints out stats acquired from the gear, completely ignoring racial bonuses, spec bonuses, etc. (it does factor in gems)
+The main problem I currently have (and yes, down the line characters in the example are Evokers) is that Armory still does not provide stats for Evokers.  
+This tool simply prints out stats acquired from the gear, completely ignoring racial bonuses, spec bonuses, etc. (it does factor in gems and enchantments).
 
 
 ## Usage
