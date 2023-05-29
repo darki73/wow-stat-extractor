@@ -2,6 +2,7 @@ from character.classes import \
     BaseSpecialization, \
     SpecializationStatBonus, \
     BaseStatPerPercent, \
+    BaseCriticalStrikeStatBonus, \
     BaseMasteryStatBonus, \
     BaseCriticalStrikeStatPerPercent, \
     BaseHasteStatPerPercent, \
@@ -33,10 +34,16 @@ class EvokerDevastationVersatilityStatPerPercent(BaseVersatilityStatPerPercent):
     value_per_percent: float = 205.0
 
 
+# Class: EvokerDevastationSpecializationCriticalStrikeStatBonus
+class EvokerDevastationSpecializationCriticalStrikeStatBonus(BaseCriticalStrikeStatBonus):
+    # Stat value
+    value: float = 5.0
+
+
 # Class: EvokerDevastationSpecializationMasteryStatBonus
 class EvokerDevastationSpecializationMasteryStatBonus(BaseMasteryStatBonus):
     # Stat value
-    value: int = 22.5
+    value: float = 22.5
 
 
 # Class: EvokerDevastationSpecialization
@@ -51,8 +58,8 @@ class EvokerDevastationSpecialization(BaseSpecialization):
     enum: str = "DEVASTATION"
     # Specialization stat bonuses
     stat_bonuses: list[SpecializationStatBonus] = [
+        EvokerDevastationSpecializationCriticalStrikeStatBonus(),
         EvokerDevastationSpecializationMasteryStatBonus(),
-
     ]
     # Class stat per percent
     stat_per_percent: list[BaseStatPerPercent] = [

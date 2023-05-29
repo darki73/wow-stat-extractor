@@ -202,6 +202,69 @@ class BaseSpecialization:
     def get_stat_per_percent(self) -> list[BaseStatPerPercent]:
         return self.stat_per_percent
 
+    # Returns true if the specialization has stat bonus by name
+    def has_stat_bonus_by_name(self, name: str) -> bool:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_name() == name:
+                return True
+        return False
+
+    # Returns the specialization stat bonus by name
+    def get_stat_bonus_by_name(self, name: str) -> SpecializationStatBonus:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_name() == name:
+                return stat_bonus
+        raise Exception(f"Stat bonus with name '{name}' not found.")
+
+    # Returns true if the specialization has stat bonus by slug
+    def has_stat_bonus_by_slug(self, slug: str) -> bool:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_slug() == slug:
+                return True
+        return False
+
+    # Returns the specialization stat bonus by slug
+    def get_stat_bonus_by_slug(self, slug: str) -> SpecializationStatBonus:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_slug() == slug:
+                return stat_bonus
+        raise Exception(f"Stat bonus with slug '{slug}' not found.")
+
+    # Returns true if the specialization has stat bonus by enum
+    def has_stat_bonus_by_enum(self, enum: str) -> bool:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_enum() == enum:
+                return True
+        return False
+
+    # Returns the specialization stat bonus by enum
+    def get_stat_bonus_by_enum(self, enum: str) -> SpecializationStatBonus:
+        for stat_bonus in self.get_stat_bonuses():
+            if stat_bonus.get_enum() == enum:
+                return stat_bonus
+        raise Exception(f"Stat bonus with enum '{enum}' not found.")
+
+    # Returns the specialization stat per percent by name
+    def get_stat_per_percent_by_name(self, name: str) -> BaseStatPerPercent:
+        for stat_per_percent in self.get_stat_per_percent():
+            if stat_per_percent.get_name() == name:
+                return stat_per_percent
+        raise Exception(f"Stat per percent with name '{name}' not found.")
+
+    # Returns the specialization stat per percent by slug
+    def get_stat_per_percent_by_slug(self, slug: str) -> BaseStatPerPercent:
+        for stat_per_percent in self.get_stat_per_percent():
+            if stat_per_percent.get_slug() == slug:
+                return stat_per_percent
+        raise Exception(f"Stat per percent with slug '{slug}' not found.")
+
+    # Returns the specialization stat per percent by enum
+    def get_stat_per_percent_by_enum(self, enum: str) -> BaseStatPerPercent:
+        for stat_per_percent in self.get_stat_per_percent():
+            if stat_per_percent.get_enum() == enum:
+                return stat_per_percent
+        raise Exception(f"Stat per percent with enum '{enum}' not found.")
+
     # Converts class to dict
     def to_dict(self) -> dict:
         return {
@@ -298,6 +361,21 @@ class BaseClass:
         if search_term in self._specialization_name_dict:
             return self.get_specialization_by_name(search_term)
         raise Exception(f"Specialization with search term {search_term} not found")
+
+    # Returns true if class specialization exists by id or slug or enum or name
+    def has_specialization(self, search_term: str) -> bool:
+        try:
+            self.get_specialization_by_id(int(search_term))
+            return True
+        except ValueError:
+            pass
+        if search_term in self._specialization_slug_dict:
+            return True
+        if search_term in self._specialization_enum_dict:
+            return True
+        if search_term in self._specialization_name_dict:
+            return True
+        return False
 
     # Converts class to dict
     def to_dict(self) -> dict:
