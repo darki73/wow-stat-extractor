@@ -2,6 +2,8 @@
 .vscode/
 __pycache__/
 character/__pycache__/
+character/classes/__pycache__/
+character/specializations/__pycache__/
 helpers/__pycache__/
 item/__pycache__/
 .env

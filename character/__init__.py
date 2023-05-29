@@ -1,3 +1,4 @@
+from .classes import *
 from .character import *
 from .character_class import *
 from .character_faction import *
