@@ -3,8 +3,9 @@ Tool to extract stats from World of Warcraft.
 It parses the World of Warcraft Armory and extracts the stats from the character page.
 
 # Why?
-The main problem I currently have (and yes, down the line characters in the example are Evokers) is that Armory still does not provide stats for Evokers.  
-This tool simply prints out stats acquired from the gear, completely ignoring racial bonuses, spec bonuses, etc. (it does factor in gems and enchantments).
+The main problem I currently have (and yes, down the line characters in the example are Evokers) is that Armory still does not provide stats for Evokers.
+This tool prints out stats acquired from gear, and for select classes (which are configured), it also prints out percentages with class / spec bonuses.
+It will always include stats acquired from gems and enchantments.
 
 
 ## Usage
@@ -40,15 +41,18 @@ python main.py
 
 Upon completion, you will be presented with a table which will look similar to this one:
 
-|                 | Chablasaurus | Mentalmath | difference | trend |
-|-----------------|--------------|------------|------------|-------|
-| Primary Stat    | 8513         | 7793       | 720        | more  |
-| Stamina         | 22514        | 22089      | 425        | more  |
-| Critical Strike | 3080         | 1959       | 1121       | more  |
-| Versatility     | 648          | 867        | -219       | less  |
-| Mastery         | 5264         | 6112       | -848       | less  |
-| Haste           | 2534         | 3279       | -745       | less  |
-| Speed           | 370          | 374        | -4         | less  |
+|                 | Chablasaurus  | Mentalmath    | Difference | Trend |
+|-----------------|---------------|---------------|------------|-------|
+| Stamina         | 22501         | 22220         | 281        | ➕    |
+| Strength        | 0             | 0             | 0          | ➖    |
+| Agility         | 0             | 0             | 0          | ➖    |
+| Intellect       | 8690          | 8557          | 133        | ➕    |
+| Critical Strike | 2728 / 20.16% | 1515 / 13.42% | 1213       | ➕    |
+| Haste           | 3008 / 17.69% | 3279 / 19.29% | -271       | ➖    |
+| Mastery         | 5324 / 96.44% | 6112 / 107.39%| -788       | ➖    |
+| Versatility     | 648 / 3.16%   | 867 / 4.23%   | -219       | ➖    |
+| Leech           | 0             | 0             | 0          | ➖    |
+| Avoidance       | 200           | 838           | -638       | ➖    |
 
 
 **trend** is the trend of the difference between the two characters. (more - first character has more of this stat, less - second character has more of this stat)  
