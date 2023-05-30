@@ -1,4 +1,5 @@
 import json
+from helpers import name_to_slug, name_to_enum
 
 
 # Class: CharacterGender
@@ -47,6 +48,19 @@ class CharacterGender:
     # Creates a new instance from a dictionary
     @classmethod
     def from_dict(cls, data):
+        gender_types = {
+            'MALE': 0,
+            'FEMALE': 1,
+        }
+
+        if 'type' in data:
+            return cls(
+                gender_types[data['type']],
+                data['name'],
+                name_to_slug(data['name']),
+                name_to_enum(data['name'])
+            )
+
         return cls(data['id'], data['name'], data['slug'], data['enum'])
 
     # Converts class to a JSON string

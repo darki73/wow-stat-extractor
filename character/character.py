@@ -8,6 +8,7 @@ from .character_race import CharacterRace
 from .character_spec import CharacterSpec
 from .character_stats import CharacterStats
 from item import Item
+from helpers import CharacterData
 
 
 # Class: Character
@@ -38,10 +39,10 @@ class Character:
     character_stats: CharacterStats
 
     # Class constructor
-    def __init__(self, name: str, realm: str, region: str):
-        self.name = name
-        self.realm = realm
-        self.region = region
+    def __init__(self, character_data: CharacterData):
+        self.name = character_data.get_name()
+        self.realm = character_data.get_realm()
+        self.region = character_data.get_region()
         self.level = 0
         self.item_level = 0
         self.character_class = None
@@ -127,20 +128,37 @@ class Character:
 
     # Creates a character from a dictionary
     @classmethod
-    def from_dict(cls, data: dict):
-        character = cls(data['name'], data['realm']['name'], data['region'])
+    def from_dict(cls, data: dict, region: str = None):
+        if 'region' not in data:
+            if region is None:
+                raise ValueError('Region is required')
+            data['region'] = region
+
+        character = cls(CharacterData(data['name'], data['realm']['name'], data['region']))
         character.level = data['level']
-        character.item_level = data['averageItemLevel']
+
+        if 'averageItemLevel' in data:
+            character.item_level = data['averageItemLevel']
+
+        if 'equipped_item_level' in data and 'averageItemLevel' not in data:
+            character.item_level = data['equipped_item_level']
 
         if 'class' in data:
             character.character_class = CharacterClass.from_dict(data['class'])
+
+        if 'character_class' in data and 'class' not in data:
+            character.character_class = CharacterClass.from_dict(data['character_class'])
 
         if 'faction' in data:
             character.character_faction = CharacterFaction.from_dict(data['faction'])
 
         if 'gear' in data:
-            for slot, item in data['gear'].items():
-                character.character_gear.append(Item.from_dict(item))
+            if isinstance(data['gear'], list):
+                for item in data['gear']:
+                    character.character_gear.append(Item.from_dict(item))
+            else:
+                for slot, item in data['gear'].items():
+                    character.character_gear.append(Item.from_dict(item))
 
         if 'gender' in data:
             character.character_gender = CharacterGender.from_dict(data['gender'])
@@ -151,9 +169,21 @@ class Character:
         if 'spec' in data:
             character.character_spec = CharacterSpec.from_dict(data['spec'])
 
+        if 'active_spec' in data and 'spec' not in data:
+            character.character_spec = CharacterSpec.from_dict(data['active_spec'])
+
         character.character_stats = CharacterStats.from_list(character.character_gear)
 
         return character
+
+    # Creates a character from an api dictionary
+    @classmethod
+    def from_api_dict(cls, data: dict, region: str = None):
+        if 'region' not in data:
+            if region is None:
+                raise ValueError('Region is required')
+            data['region'] = region
+        print(json.dumps(data, indent=4))
 
     # Converts the character to a JSON string
     def to_json(self) -> str:

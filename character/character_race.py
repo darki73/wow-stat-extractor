@@ -1,4 +1,5 @@
 import json
+from helpers import name_to_slug, name_to_enum
 
 
 # Class: CharacterRace
@@ -47,6 +48,10 @@ class CharacterRace:
     # Creates a new instance from a dictionary
     @classmethod
     def from_dict(cls, data):
+        if 'slug' not in data:
+            data['slug'] = name_to_slug(data['name'])
+        if 'enum' not in data:
+            data['enum'] = name_to_enum(data['name'])
         return cls(data['id'], data['name'], data['slug'], data['enum'])
 
     # Converts class to a JSON string
